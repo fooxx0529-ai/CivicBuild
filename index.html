@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CivicBuild Studio — Perencanaan & Desain Konstruksi Sipil</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts (Inter & Montserrat) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: {
+                            800: '#0f172a',
+                            900: '#0b0f19',
+                            950: '#05070c'
+                        },
+                        amber: {
+                            500: '#f59e0b',
+                            600: '#d97706'
+                        },
+                        steel: '#38bdf8'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Montserrat', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        .glass-nav {
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .hero-bg {
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.92) 0%, rgba(15, 23, 42, 0.8) 100%), 
+                        url('https://images.unsplash.com/photo-1541888946425-d0fbb186a5b7?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+        }
+        .grid-pattern {
+            background-image: radial-gradient(rgba(245, 158, 11, 0.15) 1px, transparent 0);
+            background-size: 24px 24px;
+        }
+    </style>
+</head>
+<body class="bg-slate-900 text-slate-100 font-sans antialiased selection:bg-amber-500 selection:text-slate-900">
+
+    <!-- NAVBAR -->
+    <header class="fixed top-0 left-0 right-0 z-50 glass-nav border-b border-slate-800 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <a href="#home" class="flex items-center space-x-3 group">
+                    <div class="w-11 h-11 bg-amber-500 rounded-xl flex items-center justify-center text-slate-900 font-extrabold text-xl shadow-lg shadow-amber-500/20 group-hover:scale-105 transition-transform">
+                        <i class="fa-solid fa-compass-drafting"></i>
+                    </div>
+                    <div>
+                        <span class="font-heading font-extrabold text-xl tracking-tight text-white block">CIVIC<span class="text-amber-500">BUILD</span></span>
+                        <span class="text-[10px] text-slate-400 font-medium tracking-widest uppercase block -mt-1">Engineering Studio</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Nav -->
+                <nav class="hidden md:flex items-center space-x-8 text-sm font-medium">
+                    <a href="#home" class="hover:text-amber-400 transition-colors py-2 text-white">Beranda</a>
+                    <a href="#profil" class="hover:text-amber-400 transition-colors py-2 text-slate-300">Profil</a>
+                    <a href="#layanan" class="hover:text-amber-400 transition-colors py-2 text-slate-300">Layanan</a>
+                    <a href="#portofolio" class="hover:text-amber-400 transition-colors py-2 text-slate-300">Portofolio</a>
+                    <a href="#kalkulator" class="hover:text-amber-400 transition-colors py-2 text-slate-300">Kalkulator RAB</a>
+                    <a href="#artikel" class="hover:text-amber-400 transition-colors py-2 text-slate-300">Artikel</a>
+                    <a href="#kontak" class="hover:text-amber-400 transition-colors py-2 text-slate-300">Kontak</a>
+                </nav>
+
+                <!-- CTA Header Button -->
+                <div class="hidden md:flex items-center space-x-4">
+                    <a href="#kontak" class="bg-amber-500 hover:bg-amber-600 text-slate-950 font-semibold px-5 py-2.5 rounded-xl text-sm transition-all shadow-lg shadow-amber-500/20 hover:shadow-amber-500/40 transform hover:-translate-y-0.5 flex items-center gap-2">
+                        <i class="fa-brands fa-whatsapp text-lg"></i> Konsultasi Gratis
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden text-slate-300 hover:text-white p-2 rounded-lg focus:outline-none">
+                    <i class="fa-solid fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-slate-950 border-b border-slate-800 px-4 pt-2 pb-6 space-y-3">
+            <a href="#home" class="mobile-link block px-3 py-2 rounded-lg text-white font-medium hover:bg-slate-800">Beranda</a>
+            <a href="#profil" class="mobile-link block px-3 py-2 rounded-lg text-slate-300 font-medium hover:bg-slate-800">Profil Studio</a>
+            <a href="#layanan" class="mobile-link block px-3 py-2 rounded-lg text-slate-300 font-medium hover:bg-slate-800">Layanan & Jasa</a>
+            <a href="#portofolio" class="mobile-link block px-3 py-2 rounded-lg text-slate-300 font-medium hover:bg-slate-800">Portofolio Proyek</a>
+            <a href="#kalkulator" class="mobile-link block px-3 py-2 rounded-lg text-slate-300 font-medium hover:bg-slate-800">Kalkulator RAB</a>
+            <a href="#artikel" class="mobile-link block px-3 py-2 rounded-lg text-slate-300 font-medium hover:bg-slate-800">Artikel & Edukasi</a>
+            <a href="#kontak" class="mobile-link block px-3 py-2 rounded-lg text-slate-300 font-medium hover:bg-slate-800">Kontak Kami</a>
+            <a href="#kontak" class="mobile-link block w-full text-center bg-amber-500 text-slate-950 font-bold py-2.5 rounded-xl shadow-md">
+                <i class="fa-brands fa-whatsapp"></i> Konsultasi WhatsApp
+            </a>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section id="home" class="relative pt-32 pb-20 md:pt-44 md:pb-32 hero-bg overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid lg:grid-cols-12 gap-12 items-center">
+                
+                <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xs font-semibold tracking-wide uppercase">
+                        <i class="fa-solid fa-hard-hat"></i> Konsultan & Perencana Teknik Sipil
+                    </div>
+                    
+                    <h1 class="font-heading font-black text-3xl sm:text-5xl lg:text-6xl text-white leading-tight tracking-tight">
+                        Presisi Struktur, <br class="hidden sm:inline">
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-amber-500 to-amber-200">
+                            Efisiensi Bangunan.
+                        </span>
+                    </h1>
+                    
+                    <p class="text-slate-300 text-base sm:text-lg max-w-2xl mx-auto lg:mx-0 font-normal leading-relaxed">
+                        CivicBuild Studio menyediakan jasa perencanaan struktur bangunan modern, visualisasi arsitektur 3D, serta perhitungan Rencana Anggaran Biaya (RAB) yang transparan dan akurat standar SNI.
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-2">
+                        <a href="#portofolio" class="bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold px-7 py-3.5 rounded-xl text-base transition-all shadow-xl shadow-amber-500/20 hover:shadow-amber-500/40 flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-cubes"></i> Lihat Portofolio
+                        </a>
+                        <a href="#kalkulator" class="bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 font-semibold px-7 py-3.5 rounded-xl text-base transition-all flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-calculator text-amber-400"></i> Hitung Estimasi RAB
+                        </a>
+                    </div>
+
+                    <!-- Mini Features badges -->
+                    <div class="pt-6 grid grid-cols-3 gap-4 border-t border-slate-800/80 max-w-lg mx-auto lg:mx-0 text-left">
+                        <div>
+                            <p class="font-heading font-bold text-xl text-white">100%</p>
+                            <p class="text-xs text-slate-400">Standar SNI & Safety</p>
+                        </div>
+                        <div>
+                            <p class="font-heading font-bold text-xl text-white">2D & 3D</p>
+                            <p class="text-xs text-slate-400">Render Detail High-Res</p>
+                        </div>
+                        <div>
+                            <p class="font-heading font-bold text-xl text-white">Akurat</p>
+                            <p class="text-xs text-slate-400">Analisis RAB Hemat</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hero Card Feature -->
+                <div class="lg:col-span-5">
+                    <div class="bg-slate-800/80 backdrop-blur-md p-6 sm:p-8 rounded-3xl border border-slate-700/80 shadow-2xl relative">
+                        <div class="absolute -top-4 -right-4 bg-amber-500 text-slate-950 px-4 py-1.5 rounded-full font-bold text-xs shadow-lg uppercase tracking-wider">
+                            Professional Team
+                        </div>
+                        <h3 class="font-heading font-bold text-xl text-white mb-4 flex items-center gap-2">
+                            <i class="fa-solid fa-building-user text-amber-400"></i> Mengapa CivicBuild?
+                        </h3>
+                        <ul class="space-y-4 text-sm text-slate-300">
+                            <li class="flex items-start gap-3">
+                                <div class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                    <i class="fa-solid fa-check text-xs"></i>
+                                </div>
+                                <span><strong>Perhitungan Struktur Aman:</strong> Menggunakan software analisis struktur terkini (ETABS / SAP2000).</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <div class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                    <i class="fa-solid fa-check text-xs"></i>
+                                </div>
+                                <span><strong>RAB Transparan:</strong> Menghindari pembengkakan biaya material dan jasa pengerjaan.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <div class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                    <i class="fa-solid fa-check text-xs"></i>
+                                </div>
+                                <span><strong>Dokumen Siap PBG/IMB:</strong> Gambar teknik kerja komplit untuk perizinan resmi.</span>
+                            </li>
+                        </ul>
+                        
+                        <div class="mt-6 pt-6 border-t border-slate-700/60 flex items-center justify-between text-xs text-slate-400">
+                            <span><i class="fa-solid fa-graduation-cap text-amber-400 mr-1"></i> Teknik Sipil Kelas C</span>
+                            <span><i class="fa-solid fa-location-dot text-amber-400 mr-1"></i> Indonesia</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- PROFIL / ABOUT US SECTION -->
+    <section id="profil" class="py-20 bg-slate-950 relative grid-pattern">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
+                <span class="text-amber-500 text-xs font-extrabold tracking-widest uppercase">Profil Studio & Tim Rekayasa</span>
+                <h2 class="font-heading font-black text-3xl sm:text-4xl text-white tracking-tight">Dibalik CivicBuild Studio</h2>
+                <div class="w-16 h-1 bg-amber-500 mx-auto rounded-full"></div>
+                <p class="text-slate-400 text-sm sm:text-base leading-relaxed pt-2">
+                    CivicBuild Studio dibentuk oleh tim akademisi dan praktisi muda Teknik Sipil yang berdedikasi memberikan solusi perencanaan konstruksi terbaik dengan standar keselamatan teruji.
+                </p>
+            </div>
+
+            <!-- Visi & Misi Cards -->
+            <div class="grid md:grid-cols-2 gap-8 mb-16">
+                <div class="bg-slate-900 p-8 rounded-2xl border border-slate-800 hover:border-slate-700 transition-all">
+                    <div class="w-12 h-12 bg-amber-500/10 text-amber-400 rounded-xl flex items-center justify-center text-2xl mb-4">
+                        <i class="fa-solid fa-bullseye"></i>
+                    </div>
+                    <h3 class="font-heading font-bold text-xl text-white mb-2">Visi Kami</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        Menjadi konsultan perencanaan teknik sipil dan arsitektur tepercaya yang mengedepankan keamanan struktur, efisiensi anggaran, dan estetika desain modern secara berkelanjutan.
+                    </p>
+                </div>
+
+                <div class="bg-slate-900 p-8 rounded-2xl border border-slate-800 hover:border-slate-700 transition-all">
+                    <div class="w-12 h-12 bg-amber-500/10 text-amber-400 rounded-xl flex items-center justify-center text-2xl mb-4">
+                        <i class="fa-solid fa-diagram-project"></i>
+                    </div>
+                    <h3 class="font-heading font-bold text-xl text-white mb-2">Misi Utama</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        Menyajikan analisis struktur sesuai SNI, memberikan estimasi RAB terperinci tanpa hidden cost, serta mempermudah komunikasi klien dalam setiap tahapan pra-konstruksi.
+                    </p>
+                </div>
+            </div>
+
+            <!-- TIM ANGGOTA KELOMPOK -->
+            <div class="mt-12">
+                <h3 class="font-heading font-bold text-2xl text-white text-center mb-8">Tim Pengembang & Ahli Teknis</h3>
+                <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                    
+                    <!-- Member 1 -->
+                    <div class="bg-slate-900 rounded-2xl p-6 border border-slate-800 hover:border-amber-500/50 transition-all group">
+                        <div class="w-20 h-20 mx-auto rounded-full bg-slate-800 border-2 border-amber-500 flex items-center justify-center mb-4 text-3xl text-amber-400 shadow-lg group-hover:scale-105 transition-transform">
+                            <i class="fa-solid fa-user-gear"></i>
+                        </div>
+                        <h4 class="font-heading font-bold text-lg text-white text-center">Andi Lolo</h4>
+                        <p class="text-xs text-amber-400 font-semibold text-center mb-1">NIM: 2511102443225</p>
+                        <p class="text-xs text-slate-400 text-center mb-4">Lead Structural Engineer & Co-Founder</p>
+                        <p class="text-slate-400 text-xs text-center border-t border-slate-800 pt-3">
+                            Bertanggung jawab atas kalkulasi analisis pembebanan struktur dan evaluasi keamanan fondasi bangunan.
+                        </p>
+                    </div>
+
+                    <!-- Member 2 -->
+                    <div class="bg-slate-900 rounded-2xl p-6 border border-slate-800 hover:border-amber-500/50 transition-all group">
+                        <div class="w-20 h-20 mx-auto rounded-full bg-slate-800 border-2 border-amber-500 flex items-center justify-center mb-4 text-3xl text-amber-400 shadow-lg group-hover:scale-105 transition-transform">
+                            <i class="fa-solid fa-drafting-compass"></i>
+                        </div>
+                        <h4 class="font-heading font-bold text-lg text-white text-center">Vincentius Ofhan Darex</h4>
+                        <p class="text-xs text-amber-400 font-semibold text-center mb-1">NIM: 2511102443210</p>
+                        <p class="text-xs text-slate-400 text-center mb-4">3D Architectural Designer & Drafter</p>
+                        <p class="text-slate-400 text-xs text-center border-t border-slate-800 pt-3">
+                            Mengolah desain visualisasi 3D, pemodelan denah arsitektur 2D, dan tata letak pencahayaan alami.
+                        </p>
+                    </div>
+
+                    <!-- Member 3 -->
+                    <div class="bg-slate-900 rounded-2xl p-6 border border-slate-800 hover:border-amber-500/50 transition-all group sm:col-span-2 lg:col-span-1">
+                        <div class="w-20 h-20 mx-auto rounded-full bg-slate-800 border-2 border-amber-500 flex items-center justify-center mb-4 text-3xl text-amber-400 shadow-lg group-hover:scale-105 transition-transform">
+                            <i class="fa-solid fa-calculator"></i>
+                        </div>
+                        <h4 class="font-heading font-bold text-lg text-white text-center">Muhammad Farel Syahputra</h4>
+                        <p class="text-xs text-amber-400 font-semibold text-center mb-1">NIM: 2511102443210</p>
+                        <p class="text-xs text-slate-400 text-center mb-4">Cost Estimator & Quantity Surveyor</p>
+                        <p class="text-slate-400 text-xs text-center border-t border-slate-800 pt-3">
+                            Spesialis penyusun Rencana Anggaran Biaya (RAB), perhitungan BQ material, dan estimasi waktu kerja.
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- LAYANAN & JASA SECTION -->
+    <section id="layanan" class="py-20 bg-slate-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
+                <span class="text-amber-500 text-xs font-extrabold tracking-widest uppercase">Layanan Keahlian Sipil</span>
+                <h2 class="font-heading font-black text-3xl sm:text-4xl text-white tracking-tight">Solusi Konstruksi Lengkap</h2>
+                <div class="w-16 h-1 bg-amber-500 mx-auto rounded-full"></div>
+                <p class="text-slate-400 text-sm sm:text-base">
+                    Kami melayani pengerjaan pra-konstruksi terintegrasi mulai dari perancangan awal hingga berkas perizinan.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Service 1 -->
+                <div class="bg-slate-950 p-7 rounded-2xl border border-slate-800 hover:border-amber-500 transition-all duration-300 hover:-translate-y-1">
+                    <div class="w-14 h-14 bg-amber-500/10 text-amber-400 rounded-xl flex items-center justify-center text-2xl mb-6">
+                        <i class="fa-solid fa-cube"></i>
+                    </div>
+                    <h3 class="font-heading font-bold text-xl text-white mb-3">Analisis & Desain Struktur</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                        Perhitungan kekuatan balok, kolom, dan fondasi tanah menggunakan software modern sesuai standar SNI gempa & beban.
+                    </p>
+                    <ul class="text-xs text-slate-300 space-y-2 mb-6">
+                        <li><i class="fa-solid fa-check text-amber-500 mr-2"></i>Perhitungan Pondasi & Sloof</li>
+                        <li><i class="fa-solid fa-check text-amber-500 mr-2"></i>Detail Pembesian Beton/Baja</li>
+                    </ul>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="bg-slate-950 p-7 rounded-2xl border border-slate-800 hover:border-amber-500 transition-all duration-300 hover:-translate-y-1">
+                    <div class="w-14 h-14 bg-amber-500/10 text-amber-400 rounded-xl flex items-center justify-center text-2xl mb-6">
+                        <i class="fa-solid fa-pen-ruler"></i>
+                    </div>
+                    <h3 class="font-heading font-bold text-xl text-white mb-3">Desain Arsitektur & Visual 3D</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                        Visualisasi 3D exterior dan interior realistis memudahkan Anda membayangkan hasil akhir hunian sebelum dibangun.
+                    </p>
+                    <ul class="text-xs text-slate-300 space-y-2 mb-6">
+                        <li><i class="fa-solid fa-check text-amber-500 mr-2"></i>Denah 2D & Gambar Kerja AutoCAD</li>
+                        <li><i class="fa-solid fa-check text-amber-500 mr-2"></i>Render 3D Photorealistic</li>
+                    </ul>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="bg-slate-950 p-7 rounded-2xl border border-slate-800 hover:border-amber-500 transition-all duration-300 hover:-translate-y-1">
+                    <div class="w-14 h-14 bg-amber-500/10 text-amber-400 rounded-xl flex items-center justify-center text-2xl mb-6">
+                        <i class="fa-solid fa-calculator"></i>
+                    </div>
+                    <h3 class="font-heading font-bold text-xl text-white mb-3">Penyusunan RAB & BQ</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                        Perhitungan volume material, kebutuhan pekerja, dan total biaya proyek secara mendetail tanpa estimasi meleset.
+                    </p>
+                    <ul class="text-xs text-slate-300 space-y-2 mb-6">
+                        <li><i class="fa-solid fa-check text-amber-500 mr-2"></i>Bill of Quantities (BQ)</li>
+                        <li><i class="fa-solid fa-check text-amber-500 mr-2"></i>Analisis Harga Satuan Pekerjaan (AHSP)</li>
+                    </ul>
+                </div>
+
+                <!-- Service 4 -->
+                <div class="bg-slate-950 p-7 rounded-2xl border border-slate-800 hover:border-amber-500 transition-all duration-300 hover:-translate-y-1">
+                    <div class="w-14 h-14 bg-amber-500/10 text-amber-400 rounded-xl flex items-center justify-center text-2xl mb-6">
+                        <i class="fa-solid fa-map-location-dot"></i>
+                    </div>
+                    <h3 class="font-heading font-bold text-xl text-white mb-3">Survey Lahan & Pemetaan</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                        Pengukuran kontur tanah, batas tapak bangunan, dan analisa elevasi lahan untuk perencanaan tapak yang efisien.
+                    </p>
+                    <ul class="text-xs text-slate-300 space-y-2 mb-6">
+                        <li><i class="fa-solid fa-check text-amber-500 mr-2"></i>Pengukuran Topografi</li>
+                        <li><i class="fa-solid fa-check text-amber-500 mr-2"></i>Evaluasi Kepadatan Tanah</li>
+                    </ul>
+                </div>
+
+                <!-- Service 5 -->
+                <div class="bg-slate-950 p-7 rounded-2xl border border-slate-800 hover:border-amber-500 transition-all duration-300 hover:-translate-y-1">
+                    <div class="w-14 h-14 bg-amber-500/10 text-amber-400 rounded-xl flex items-center justify-center text-2xl mb-6">
+                        <i class="fa-solid fa-file-contract"></i>
+                    </div>
+                    <h3 class="font-heading font-bold text-xl text-white mb-3">Berkas Perizinan PBG/IMB</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                        Penyusunan berkas teknis gambar arsitektur, MEP, dan laporan struktur yang disyaratkan untuk kelayakan izin bangunan.
+                    </p>
+                    <ul class="text-xs text-slate-300 space-y-2 mb-6">
+                        <li><i class="fa-solid fa-check text-amber-500 mr-2"></i>Gambar DED Legalitas</li>
+                        <li><i class="fa-solid fa-check text-amber-500 mr-2"></i>Laporan Perhitungan Struktur Sesuai Aturan</li>
+                    </ul>
+                </div>
+
+                <!-- Service 6 -->
+                <div class="bg-slate-950 p-7 rounded-2xl border border-slate-800 hover:border-amber-500 transition-all duration-300 hover:-translate-y-1">
+                    <div class="w-14 h-14 bg-amber-500/10 text-amber-400 rounded-xl flex items-center justify-center text-2xl mb-6">
+                        <i class="fa-solid fa-helmet-safety"></i>
+                    </div>
+                    <h3 class="font-heading font-bold text-xl text-white mb-3">Konsultasi & Pengawasan Kerja</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                        Pendampingan teknis berkala saat pengerjaan lapangan untuk memastikan kontraktor mengikuti gambar rancangan secara tepat.
+                    </p>
+                    <ul class="text-xs text-slate-300 space-y-2 mb-6">
+                        <li><i class="fa-solid fa-check text-amber-500 mr-2"></i>Supervisi Lapangan Spasial</li>
+                        <li><i class="fa-solid fa-check text-amber-500 mr-2"></i>Quality Assurance Material</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- INTERACTIVE RAB CALCULATOR WIDGET -->
+    <section id="kalkulator" class="py-20 bg-slate-950 relative">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-gradient-to-br from-slate-900 to-slate-800 p-6 sm:p-10 rounded-3xl border border-slate-700 shadow-2xl">
+                
+                <div class="text-center max-w-2xl mx-auto mb-10 space-y-2">
+                    <span class="text-amber-400 text-xs font-bold tracking-wider uppercase"><i class="fa-solid fa-calculator mr-1"></i> Interactive Tool</span>
+                    <h2 class="font-heading font-black text-2xl sm:text-3xl text-white">Simulasi Estimasi Biaya Bangunan (RAB)</h2>
+                    <p class="text-slate-400 text-xs sm:text-sm">
+                        Masukkan luas dan tipe spesifikasi bangunan Anda untuk mendapatkan perkiraan kasar biaya material & pengerjaan.
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8 items-start">
+                    
+                    <!-- Input Form -->
+                    <div class="space-y-5 bg-slate-950 p-6 rounded-2xl border border-slate-800">
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Tipe Kategori Bangunan</label>
+                            <select id="calc-type" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-amber-500">
+                                <option value="3500000">Rumah Tinggal 1 Lantai (Standar)</option>
+                                <option value="4500000" selected>Rumah Tinggal 2 Lantai (Modern)</option>
+                                <option value="5500000">Ruko / Bangunan Komersial</option>
+                                <option value="3000000">Gudang / Struktur Baja</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <label class="text-xs font-bold uppercase tracking-wider text-slate-300">Estimasi Luas Total Bangunan (m²)</label>
+                                <span id="area-val" class="text-amber-400 font-extrabold text-sm">120 m²</span>
+                            </div>
+                            <input type="range" id="calc-area" min="30" max="500" value="120" step="5" class="w-full accent-amber-500 cursor-pointer">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Kualitas Finishing Material</label>
+                            <div class="grid grid-cols-3 gap-2">
+                                <button type="button" onclick="setQuality(1)" id="q-1" class="q-btn py-2 text-xs font-semibold rounded-lg bg-slate-800 text-slate-300 border border-slate-700 hover:border-amber-500">Standar</button>
+                                <button type="button" onclick="setQuality(1.2)" id="q-2" class="q-btn py-2 text-xs font-semibold rounded-lg bg-amber-500 text-slate-950 border border-amber-500 font-bold">Medium</button>
+                                <button type="button" onclick="setQuality(1.5)" id="q-3" class="q-btn py-2 text-xs font-semibold rounded-lg bg-slate-800 text-slate-300 border border-slate-700 hover:border-amber-500">Mewah</button>
+                            </div>
+                        </div>
+
+                        <button type="button" onclick="calculateRAB()" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold py-3 rounded-xl transition-all shadow-lg shadow-amber-500/20 text-sm">
+                            <i class="fa-solid fa-rotate text-xs mr-1"></i> Hitung Ulang Biaya
+                        </button>
+                    </div>
+
+                    <!-- Result Display Card -->
+                    <div class="bg-slate-900 p-6 rounded-2xl border border-amber-500/30 flex flex-col justify-between h-full space-y-6">
+                        <div>
+                            <h4 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Perkiraan Biaya Konstruksi</h4>
+                            <div class="text-3xl sm:text-4xl font-heading font-black text-amber-400 tracking-tight" id="result-total">
+                                Rp 648.000.000
+                            </div>
+                            <p class="text-[11px] text-slate-500 mt-1">*Estimasi awal belum termasuk biaya tak terduga site khusus.</p>
+                        </div>
+
+                        <div class="space-y-3 border-t border-b border-slate-800 py-4 text-xs text-slate-300">
+                            <div class="flex justify-between">
+                                <span class="text-slate-400">Estimasi Material Saja (±60%):</span>
+                                <span id="res-material" class="font-bold text-white">Rp 388.800.000</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-slate-400">Estimasi Jasa Pekerja (±40%):</span>
+                                <span id="res-labor" class="font-bold text-white">Rp 259.200.000</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-slate-400">Estimasi Biaya Jasa Perencanaan CivicBuild:</span>
+                                <span class="font-bold text-amber-400">Mulai 2.5% Biaya Proyek</span>
+                            </div>
+                        </div>
+
+                        <button type="button" onclick="sendRABToWA()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 rounded-xl transition-all flex items-center justify-center gap-2 text-xs sm:text-sm">
+                            <i class="fa-brands fa-whatsapp text-lg"></i> Kirim Rincian Ini ke WA Konsultan
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- PORTOFOLIO PROYEK SECTION -->
+    <section id="portofolio" class="py-20 bg-slate-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12 space-y-3">
+                <span class="text-amber-500 text-xs font-extrabold tracking-widest uppercase">Hasil Karya Perancangan</span>
+                <h2 class="font-heading font-black text-3xl sm:text-4xl text-white tracking-tight">Portofolio Proyek Terpilih</h2>
+                <div class="w-16 h-1 bg-amber-500 mx-auto rounded-full"></div>
+            </div>
+
+            <!-- Filter Buttons -->
+            <div class="flex flex-wrap justify-center gap-2 mb-12">
+                <button onclick="filterPortfolio('all')" class="port-btn active px-5 py-2 text-xs font-bold rounded-full bg-amber-500 text-slate-950 transition-all">Semua Proyek</button>
+                <button onclick="filterPortfolio('3d')" class="port-btn px-5 py-2 text-xs font-bold rounded-full bg-slate-800 text-slate-300 hover:bg-slate-700 transition-all">Desain 3D Render</button>
+                <button onclick="filterPortfolio('struktur')" class="port-btn px-5 py-2 text-xs font-bold rounded-full bg-slate-800 text-slate-300 hover:bg-slate-700 transition-all">Gambar Kerja & Struktur</button>
+                <button onclick="filterPortfolio('komersial')" class="port-btn px-5 py-2 text-xs font-bold rounded-full bg-slate-800 text-slate-300 hover:bg-slate-700 transition-all">Ruko & Komersial</button>
+            </div>
+
+            <!-- Portfolio Grid -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Item 1 -->
+                <div class="port-item 3d bg-slate-950 rounded-2xl overflow-hidden border border-slate-800 hover:border-amber-500/50 transition-all group">
+                    <div class="relative overflow-hidden h-52">
+                        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80" alt="Villa Minimalis 2 Lantai" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <span class="absolute top-3 left-3 bg-amber-500 text-slate-950 font-bold text-[10px] uppercase px-3 py-1 rounded-full">Desain 3D</span>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-heading font-bold text-lg text-white mb-2">Desain Villa Minimalis Modern 2 Lantai</h3>
+                        <p class="text-slate-400 text-xs mb-4">Perencanaan visualisasi 3D exterior & denah ruang hemat energi.</p>
+                        <div class="flex items-center justify-between pt-4 border-t border-slate-800">
+                            <span class="text-[11px] text-slate-400"><i class="fa-solid fa-ruler-combined text-amber-500 mr-1"></i> Luas: 180 m²</span>
+                            <button onclick="openProjectModal('Villa Minimalis 2 Lantai', 'Visualisasi 3D exterior dan rancangan denah terbuka dengan pencahayaan alami optimal. Menggunakan struktur rangka beton bertulang.', 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80')" class="text-xs text-amber-400 font-semibold hover:underline">
+                                Detail Proyek <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="port-item struktur bg-slate-950 rounded-2xl overflow-hidden border border-slate-800 hover:border-amber-500/50 transition-all group">
+                    <div class="relative overflow-hidden h-52">
+                        <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=800&q=80" alt="Perencanaan Balok Beton" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <span class="absolute top-3 left-3 bg-amber-500 text-slate-950 font-bold text-[10px] uppercase px-3 py-1 rounded-full">Struktur SNI</span>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-heading font-bold text-lg text-white mb-2">Perancangan Struktur Gedung Serbaguna</h3>
+                        <p class="text-slate-400 text-xs mb-4">Analisis beban gempa zona 4 dengan pemodelan ETABS & fondasi tiang pancang.</p>
+                        <div class="flex items-center justify-between pt-4 border-t border-slate-800">
+                            <span class="text-[11px] text-slate-400"><i class="fa-solid fa-ruler-combined text-amber-500 mr-1"></i> Bentang: 24 Meter</span>
+                            <button onclick="openProjectModal('Struktur Gedung Serbaguna', 'Analisis komprehensif struktur atas (balok, kolom beton K-350) dan struktur bawah (fondasi pancang). Laporan siap verifikasi PBG.', 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1200&q=80')" class="text-xs text-amber-400 font-semibold hover:underline">
+                                Detail Proyek <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="port-item komersial bg-slate-950 rounded-2xl overflow-hidden border border-slate-800 hover:border-amber-500/50 transition-all group">
+                    <div class="relative overflow-hidden h-52">
+                        <img src="https://images.unsplash.com/photo-1577495508048-b635879837f1?auto=format&fit=crop&w=800&q=80" alt="Ruko Modern 3 Lantai" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <span class="absolute top-3 left-3 bg-amber-500 text-slate-950 font-bold text-[10px] uppercase px-3 py-1 rounded-full">Komersial</span>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-heading font-bold text-lg text-white mb-2">Desain Ruko Commercial Row 3 Lantai</h3>
+                        <p class="text-slate-400 text-xs mb-4">Perencanaan arsitektur ruko bisnis efisien lahan lengkap dengan rancangan RAB.</p>
+                        <div class="flex items-center justify-between pt-4 border-t border-slate-800">
+                            <span class="text-[11px] text-slate-400"><i class="fa-solid fa-ruler-combined text-amber-500 mr-1"></i> Total Luas: 320 m²</span>
+                            <button onclick="openProjectModal('Ruko Commercial 3 Lantai', 'Proyek komersial perkotaan dengan desain facade kaca modern, area parkir luas, serta perhitungan RAB material ekonomis.', 'https://images.unsplash.com/photo-1577495508048-b635879837f1?auto=format&fit=crop&w=1200&q=80')" class="text-xs text-amber-400 font-semibold hover:underline">
+                                Detail Proyek <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ARTIKEL & EDUKASI SECTION -->
+    <section id="artikel" class="py-20 bg-slate-950 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
+                <span class="text-amber-500 text-xs font-extrabold tracking-widest uppercase">Pusat Informasi & Edukasi</span>
+                <h2 class="font-heading font-black text-3xl sm:text-4xl text-white tracking-tight">Artikel Teknik Sipil & Tips Bangunan</h2>
+                <div class="w-16 h-1 bg-amber-500 mx-auto rounded-full"></div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                
+                <!-- Article 1 -->
+                <article class="bg-slate-900 rounded-2xl overflow-hidden border border-slate-800 flex flex-col justify-between">
+                    <div>
+                        <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=600&q=80" alt="Fondasi Rumah" class="w-full h-44 object-cover">
+                        <div class="p-6">
+                            <span class="text-[10px] text-amber-400 font-bold uppercase tracking-wider block mb-2">Tips Struktur</span>
+                            <h3 class="font-heading font-bold text-base text-white mb-2 leading-snug">5 Cara Memilih Jenis Fondasi yang Tepat Sesuai Kondisi Tanah</h3>
+                            <p class="text-slate-400 text-xs line-clamp-3 mb-4">
+                                Fondasi batu kali, cakar ayam, atau tiang pancang? Ketahui karakteristik daya dukung tanah lokasi Anda sebelum memutuskan.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="px-6 pb-6 pt-0">
+                        <button onclick="openArticleModal('5 Cara Memilih Jenis Fondasi yang Tepat Sesuai Kondisi Tanah', 'Pemilihan jenis fondasi sangat krusial dalam perencanaan rekayasa sipil. Untuk tanah keras dangkal, fondasi batu kali atau cakar ayam sudah mencukupi untuk hunian 1-2 lantai. Namun untuk tanah lunak atau rawa, diperlukan fondasi tiang pancang atau bore pile hingga mencapai lapisan tanah keras.')" class="text-xs text-amber-400 font-bold hover:underline flex items-center gap-1">
+                            Baca Selengkapnya <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                        </button>
+                    </div>
+                </article>
+
+                <!-- Article 2 -->
+                <article class="bg-slate-900 rounded-2xl overflow-hidden border border-slate-800 flex flex-col justify-between">
+                    <div>
+                        <img src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=600&q=80" alt="Menyusun RAB" class="w-full h-44 object-cover">
+                        <div class="p-6">
+                            <span class="text-[10px] text-amber-400 font-bold uppercase tracking-wider block mb-2">Manajemen Biaya</span>
+                            <h3 class="font-heading font-bold text-base text-white mb-2 leading-snug">Cara Membaca RAB Agar Biaya Pembangunan Tidak Bengkak</h3>
+                            <p class="text-slate-400 text-xs line-clamp-3 mb-4">
+                                Pelajari komponen Analisis Harga Satuan Pekerjaan (AHSP) dan cara memantau volume bahan secara transparan.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="px-6 pb-6 pt-0">
+                        <button onclick="openArticleModal('Cara Membaca RAB Agar Biaya Pembangunan Tidak Bengkak', 'Penyebab utama pembengkakan biaya proyek adalah kurang terperincinya spesifikasi material pada BQ awal. Pastikan RAB Anda mencantumkan merk, volume, dan koefisien jasa tukang secara detail.')" class="text-xs text-amber-400 font-bold hover:underline flex items-center gap-1">
+                            Baca Selengkapnya <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                        </button>
+                    </div>
+                </article>
+
+                <!-- Article 3 -->
+                <article class="bg-slate-900 rounded-2xl overflow-hidden border border-slate-800 flex flex-col justify-between">
+                    <div>
+                        <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80" alt="Izin PBG IMB" class="w-full h-44 object-cover">
+                        <div class="p-6">
+                            <span class="text-[10px] text-amber-400 font-bold uppercase tracking-wider block mb-2">Legalitas Proyek</span>
+                            <h3 class="font-heading font-bold text-base text-white mb-2 leading-snug">Perbedaan IMB dan PBG dalam Perizinan Bangunan Terbaru</h3>
+                            <p class="text-slate-400 text-xs line-clamp-3 mb-4">
+                                Memahami aturan Persetujuan Bangunan Gedung (PBG) dan syarat dokumen perencanaan teknis yang dibutuhkan.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="px-6 pb-6 pt-0">
+                        <button onclick="openArticleModal('Perbedaan IMB dan PBG dalam Perizinan Bangunan Terbaru', 'Persetujuan Bangunan Gedung (PBG) menggantikan IMB dengan fokus pada standar teknis keselamatan struktur, ketahanan kebakaran, dan kelayakan fungsi sebelum pembangunan dimulai.')" class="text-xs text-amber-400 font-bold hover:underline flex items-center gap-1">
+                            Baca Selengkapnya <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                        </button>
+                    </div>
+                </article>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- KONTAK & KONSULTASI SECTION -->
+    <section id="kontak" class="py-20 bg-slate-900 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-12 gap-12">
+                
+                <!-- Info Column -->
+                <div class="lg:col-span-5 space-y-6">
+                    <div>
+                        <span class="text-amber-500 text-xs font-extrabold tracking-widest uppercase block mb-2">Hubungi Tim Kami</span>
+                        <h2 class="font-heading font-black text-3xl sm:text-4xl text-white tracking-tight">Diskusi & Konsultasi Proyek Anda</h2>
+                    </div>
+
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        Punya rencana membangun rumah, ruko, atau membutuhkan analisis kekuatan struktur? Silakan hubungi tim CivicBuild Studio melalui formulir atau kontak berikut.
+                    </p>
+
+                    <div class="space-y-4 pt-4">
+                        <div class="flex items-start gap-4 p-4 rounded-xl bg-slate-950 border border-slate-800">
+                            <div class="w-10 h-10 bg-amber-500/10 text-amber-400 rounded-lg flex items-center justify-center text-lg flex-shrink-0">
+                                <i class="fa-solid fa-location-dot"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-xs font-bold text-white uppercase tracking-wider">Lokasi Studio</h4>
+                                <p class="text-xs text-slate-400">Kampus Teknik Sipil - Kelas C, Indonesia</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4 p-4 rounded-xl bg-slate-950 border border-slate-800">
+                            <div class="w-10 h-10 bg-amber-500/10 text-amber-400 rounded-lg flex items-center justify-center text-lg flex-shrink-0">
+                                <i class="fa-brands fa-whatsapp"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-xs font-bold text-white uppercase tracking-wider">WhatsApp & Telepon</h4>
+                                <p class="text-xs text-slate-400">+62 813-5104-9116 (Layanan Konsultasi Cepat)</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4 p-4 rounded-xl bg-slate-950 border border-slate-800">
+                            <div class="w-10 h-10 bg-amber-500/10 text-amber-400 rounded-lg flex items-center justify-center text-lg flex-shrink-0">
+                                <i class="fa-solid fa-envelope"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-xs font-bold text-white uppercase tracking-wider">Email Resmi</h4>
+                                <p class="text-xs text-slate-400">info@civicbuildstudio.id</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form Column -->
+                <div class="lg:col-span-7">
+                    <form id="contact-form" onsubmit="handleFormSubmit(event)" class="bg-slate-950 p-8 rounded-3xl border border-slate-800 space-y-5">
+                        <h3 class="font-heading font-bold text-xl text-white mb-2">Formulir Permintaan Perencanaan</h3>
+                        
+                        <div class="grid sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-300 mb-1">Nama Lengkap</label>
+                                <input type="text" id="form-name" required placeholder="Contoh: Budi Santoso" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-xs text-white focus:outline-none focus:border-amber-500">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-300 mb-1">Nomor WhatsApp</label>
+                                <input type="tel" id="form-phone" required placeholder="0812xxxxxxx" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-xs text-white focus:outline-none focus:border-amber-500">
+                            </div>
+                        </div>
+
+                        <div class="grid sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-300 mb-1">Jenis Proyek</label>
+                                <select id="form-service" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-xs text-white focus:outline-none focus:border-amber-500">
+                                    <option>Desain Rumah Tinggal</option>
+                                    <option>Perhitungan Struktur Bangunan</option>
+                                    <option>Penyusunan RAB & BQ</option>
+                                    <option>Desain Ruko / Komersial</option>
+                                    <option>Berkas Perizinan PBG/IMB</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-300 mb-1">Estimasi Luas Lahan / Bangunan</label>
+                                <input type="text" id="form-size" placeholder="Misal: 100 m²" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-xs text-white focus:outline-none focus:border-amber-500">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-300 mb-1">Catatan / Detail Rencana</label>
+                            <textarea id="form-message" rows="4" placeholder="Tuliskan kebutuhan khusus atau lokasi proyek Anda..." class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-xs text-white focus:outline-none focus:border-amber-500"></textarea>
+                        </div>
+
+                        <button type="submit" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold py-3.5 rounded-xl transition-all shadow-lg shadow-amber-500/20 text-sm flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-paper-plane"></i> Kirim Pesan Konsultasi
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FLOATING WHATSAPP BUTTON -->
+    <a href="https://wa.me/6281351049116?text=Halo%20CivicBuild%20Studio,%20saya%20ingin%20konsultasi%20mengenai%20perencanaan%20konstruksi." target="_blank" rel="noopener noreferrer" class="fixed bottom-6 right-6 z-40 bg-emerald-500 hover:bg-emerald-600 text-white w-14 h-14 rounded-full flex items-center justify-center text-3xl shadow-2xl shadow-emerald-500/40 hover:scale-110 transition-transform">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-950 border-t border-slate-800 text-slate-400 py-12 text-xs">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div class="space-y-3 md:col-span-2">
+                    <span class="font-heading font-extrabold text-lg text-white block">CIVIC<span class="text-amber-500">BUILD</span> STUDIO</span>
+                    <p class="max-w-sm text-slate-400 leading-relaxed">
+                        Jasa Perencanaan & Konsultan Teknik Sipil. Menyediakan perhitungan struktur bangunan SNI, desain 2D/3D, dan Rencana Anggaran Biaya (RAB) akurat.
+                    </p>
+                    <p class="text-slate-500 text-[11px]">
+                        Tugas Kelompok Pemrograman Web Berbasis CMS — Teknik Sipil Kelas C
+                    </p>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-bold mb-3 uppercase tracking-wider text-[11px]">Anggota Kelompok</h4>
+                    <ul class="space-y-1.5 text-slate-400">
+                        <li>Andi Lolo (2511102443225)</li>
+                        <li>Vincentius Ofhan Darex (2511102443210)</li>
+                        <li>Muhammad Farel Syahputra (2511102443210)</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-bold mb-3 uppercase tracking-wider text-[11px]">Navigasi Cepat</h4>
+                    <ul class="space-y-1.5">
+                        <li><a href="#home" class="hover:text-amber-400">Beranda</a></li>
+                        <li><a href="#profil" class="hover:text-amber-400">Profil Studio</a></li>
+                        <li><a href="#layanan" class="hover:text-amber-400">Layanan Jasa</a></li>
+                        <li><a href="#kalkulator" class="hover:text-amber-400">Kalkulator RAB</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-slate-800 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-[11px]">
+                <p>&copy; 2026 CivicBuild Studio. All Rights Reserved.</p>
+                <p class="text-slate-500">Dibuat untuk Tugas T1 Pemrograman Web WordPress</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- MODAL POPUP DIALOG -->
+    <div id="modal-container" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden items-center justify-center p-4">
+        <div class="bg-slate-900 border border-slate-700 rounded-2xl max-w-lg w-full p-6 relative shadow-2xl space-y-4">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+            <h3 id="modal-title" class="font-heading font-bold text-xl text-white">Judul Modal</h3>
+            <img id="modal-img" src="" alt="Modal Image" class="w-full h-48 object-cover rounded-xl hidden">
+            <p id="modal-body" class="text-xs text-slate-300 leading-relaxed">Isi konten modal...</p>
+            <div class="pt-2">
+                <button onclick="closeModal()" class="w-full bg-amber-500 text-slate-950 font-bold py-2.5 rounded-xl text-xs">
+                    Tutup
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /* Mobile Navigation Toggle */
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        /* RAB Calculator Logic */
+        let currentMultiplier = 1.2;
+
+        const calcArea = document.getElementById('calc-area');
+        const areaVal = document.getElementById('area-val');
+
+        calcArea.addEventListener('input', (e) => {
+            areaVal.innerText = `${e.target.value} m²`;
+            calculateRAB();
+        });
+
+        function setQuality(mult) {
+            currentMultiplier = mult;
+            document.querySelectorAll('.q-btn').forEach(btn => {
+                btn.classList.remove('bg-amber-500', 'text-slate-950', 'font-bold');
+                btn.classList.add('bg-slate-800', 'text-slate-300');
+            });
+            event.target.classList.remove('bg-slate-800', 'text-slate-300');
+            event.target.classList.add('bg-amber-500', 'text-slate-950', 'font-bold');
+            calculateRAB();
+        }
+
+        function calculateRAB() {
+            const basePrice = parseFloat(document.getElementById('calc-type').value);
+            const area = parseFloat(calcArea.value);
+            
+            const total = basePrice * area * currentMultiplier;
+            const material = total * 0.6;
+            const labor = total * 0.4;
+
+            const formatIDR = (num) => new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(num);
+
+            document.getElementById('result-total').innerText = formatIDR(total);
+            document.getElementById('res-material').innerText = formatIDR(material);
+            document.getElementById('res-labor').innerText = formatIDR(labor);
+        }
+
+        function sendRABToWA() {
+            const total = document.getElementById('result-total').innerText;
+            const area = calcArea.value;
+            const text = encodeURIComponent(`Halo CivicBuild Studio, saya melakukan kalkulasi RAB di website untuk estimasi luas ${area} m² dengan perkiraan total ${total}. Saya ingin berkonsultasi lebih lanjut.`);
+            window.open(`https://wa.me/6281351049116?text=${text}`, '_blank');
+        }
+
+        /* Portfolio Filter Logic */
+        function filterPortfolio(category) {
+            document.querySelectorAll('.port-btn').forEach(btn => {
+                btn.classList.remove('bg-amber-500', 'text-slate-950');
+                btn.classList.add('bg-slate-800', 'text-slate-300');
+            });
+            event.target.classList.remove('bg-slate-800', 'text-slate-300');
+            event.target.classList.add('bg-amber-500', 'text-slate-950');
+
+            const items = document.querySelectorAll('.port-item');
+            items.forEach(item => {
+                if (category === 'all' || item.classList.contains(category)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        /* Modal Handler */
+        function openProjectModal(title, desc, imgSrc) {
+            document.getElementById('modal-title').innerText = title;
+            document.getElementById('modal-body').innerText = desc;
+            const img = document.getElementById('modal-img');
+            if (imgSrc) {
+                img.src = imgSrc;
+                img.classList.remove('hidden');
+            } else {
+                img.classList.add('hidden');
+            }
+            const modal = document.getElementById('modal-container');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function openArticleModal(title, content) {
+            document.getElementById('modal-title').innerText = title;
+            document.getElementById('modal-body').innerText = content;
+            document.getElementById('modal-img').classList.add('hidden');
+            const modal = document.getElementById('modal-container');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('modal-container');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        /* Form Handler */
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            const name = document.getElementById('form-name').value;
+            const service = document.getElementById('form-service').value;
+            
+            openArticleModal('Pesan Berhasil Dikirim!', `Terima kasih ${name}. Permintaan konsultasi untuk "${service}" telah diterima oleh tim CivicBuild Studio. Tim kami akan segera menghubungi Anda melalui WhatsApp.`);
+            document.getElementById('contact-form').reset();
+        }
+    </script>
+</body>
+</html>
